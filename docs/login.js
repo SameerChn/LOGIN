@@ -71,7 +71,7 @@ loginBtn.addEventListener('click', async () => {
       loginData[key] === undefined && delete loginData[key]
     );
 
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${window.API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ registerBtn.addEventListener('click', async () => {
   registerError.textContent = 'Creating account...';
   
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    const response = await fetch(`${window.API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
