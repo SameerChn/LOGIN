@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1A120B 0%, #3C2A21 100%);
+      min-height: 100vh;
+      color: #E5E5CB;
+    }
+
+    .navbar {
+      background: #3C2A21;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #D5CEA3;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logout-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .welcome-card {
+      background: #3C2A21;
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-left: 5px solid #D5CEA3;
+    }
+
+    .welcome-title {
+      font-size: 2rem;
+      color: #D5CEA3;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-text {
+      color: #A69B86;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .user-details {
+      background: #3C2A21;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .details-title {
+      font-size: 1.5rem;
+      color: #D5CEA3;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid #5D4A3F;
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: #A69B86;
+    }
+
+    .detail-value {
+      color: #E5E5CB;
+    }
+
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .user-info {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      .welcome-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">MyApp</div>
+      <div class="user-info">
+        <span id="username">User</span>
+        <button class="logout-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="welcome-card">
+      <h1 class="welcome-title">Welcome to Your Dashboard!</h1>
+      <p class="welcome-text">
+        You have successfully logged in to your account. This is a simple dashboard page that you can customize according to your needs.
+      </p>
+    </div>
+
+    <div class="user-details">
+      <h2 class="details-title">Your Account Details</h2>
+      <div class="detail-item">
+        <span class="detail-label">Username:</span>
+        <span class="detail-value" id="user-username">-</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Email:</span>
+        <span class="detail-value" id="user-email">-</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Account Created:</span>
+        <span class="detail-value" id="user-created">-</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check for OAuth redirect with URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const tokenFromUrl = urlParams.get('token');
+      const userFromUrl = urlParams.get('user');
+      
+      if (tokenFromUrl && userFromUrl) {
+        // OAuth redirect - store the data and clean URL
+        try {
+          const userData = JSON.parse(decodeURIComponent(userFromUrl));
+          localStorage.setItem('token', tokenFromUrl);
+          localStorage.setItem('user', JSON.stringify(userData));
+          
+          // Clean URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } catch (error) {
+          console.error('Error parsing OAuth data:', error);
+        }
+      }
+      
+      const token = localStorage.getItem('token');
+      const user = localStorage.getItem('user');
+      
+      if (!token || !user) {
+        // User is not logged in, redirect to login page
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Parse user data and display it
+      try {
+        const userData = JSON.parse(user);
+        
+        // Update navbar
+        document.getElementById('username').textContent = userData.username;
+        
+        // Update user details
+        document.getElementById('user-username').textContent = userData.username;
+        document.getElementById('user-email').textContent = userData.email;
+        
+        // Format creation date
+        const createdDate = new Date().toLocaleDateString();
+        document.getElementById('user-created').textContent = createdDate;
+        
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        // If there's an error parsing user data, redirect to login
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html> 
