@@ -16,7 +16,7 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 router.get('/google/callback', passport.authenticate('google', { 
-  failureRedirect: (process.env.FRONTEND_URL ? process.env.FRONTEND_URL + '/login.html' : 'http://localhost:5500/docs/login.html'), 
+  failureRedirect: 'https://login-vert-rho.vercel.app/login.html', 
   session: true 
 }), (req, res) => {
   // Generate JWT and redirect to the correct frontend with user info
@@ -28,8 +28,7 @@ router.get('/google/callback', passport.authenticate('google', {
     token: token
   };
   
-  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5500/docs';
-  res.redirect(`${frontendUrl}/dashboard.html?token=${token}&user=${encodeURIComponent(JSON.stringify(userData))}`);
+  res.redirect(`https://login-vert-rho.vercel.app/dashboard.html?token=${token}&user=${encodeURIComponent(JSON.stringify(userData))}`);
 });
 
 module.exports = router;

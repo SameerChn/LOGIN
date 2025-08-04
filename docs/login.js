@@ -8,8 +8,8 @@ const registerBtn = document.getElementById('register-btn');
 const loginError = document.getElementById('login-error');
 const registerError = document.getElementById('register-error');
 
-// API base URL
-const API_BASE_URL = 'http://localhost:5000/api';
+// API base URL from config
+const API_BASE_URL = window.API_BASE_URL + '/api';
 
 // Password visibility toggle
 function togglePasswordVisibility() {
