@@ -9,10 +9,7 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: ['https://login-vert-rho.vercel.app', 'http://localhost:5500'],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // Session middleware (required for Passport)
@@ -20,10 +17,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'your-session-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { 
-    secure: true,  // Enable secure cookies for HTTPS
-    sameSite: 'none'  // Required for cross-origin cookies
-  }
+  cookie: { secure: false } // Set to true if using HTTPS
 }));
 
 // Initialize Passport
@@ -34,7 +28,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.GOOGLE_CALLBACK_URL || "https://login-v2vh.onrender.com/api/auth/google/callback"
+  callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:5000/api/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     // Check if user already exists
@@ -105,4 +99,4 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
+}); 

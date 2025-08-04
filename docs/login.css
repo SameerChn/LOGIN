@@ -1,5 +1,5 @@
 
-* {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -7,21 +7,13 @@
     }
     
     body {
-      background: linear-gradient(135deg, var(--charcoal) 0%, var(--dark-slate-gray) 100%);
+      background: linear-gradient(135deg, #1A120B 0%, #3C2A21 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      color: var(--tea-green);
-    }
-    
-    :root {
-      --tea-green: #c9e4caff;
-      --cambridge-blue: #87bba2ff;
-      --blue-munsell: #55828bff;
-      --dark-slate-gray: #3b6064ff;
-      --charcoal: #364958ff;
+      color: #E5E5CB;
     }
     
     .background-pattern {
@@ -31,8 +23,8 @@
       width: 100%;
       height: 100%;
       background: 
-        radial-gradient(circle at 10% 20%, var(--blue-munsell) 0%, transparent 15%),
-        radial-gradient(circle at 90% 80%, var(--blue-munsell) 0%, transparent 15%);
+        radial-gradient(circle at 10% 20%, rgba(58, 45, 33, 0.3) 0%, transparent 15%),
+        radial-gradient(circle at 90% 80%, rgba(58, 45, 33, 0.3) 0%, transparent 15%);
       z-index: -1;
     }
     
@@ -43,7 +35,7 @@
     }
     
     .auth-card {
-      background: var(--dark-slate-gray);
+      background: #3C2A21;
       border-radius: 20px;
       padding: 40px 30px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
@@ -60,7 +52,7 @@
       left: 0;
       right: 0;
       height: 5px;
-      background: var(--tea-green);
+      background: #D5CEA3;
     }
     
     .auth-header {
@@ -70,30 +62,30 @@
     
     .auth-title {
       font-size: 2.2rem;
-      color: var(--tea-green);
+      color: #D5CEA3;
       margin-bottom: 10px;
     }
     
     .auth-subtitle {
-      color: var(--cambridge-blue);
+      color: #A69B86;
       font-size: 1.1rem;
     }
     
     .avatar {
       width: 100px;
       height: 100px;
-      background: var(--charcoal);
+      background: #1A120B;
       border-radius: 50%;
       margin: 0 auto 25px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid var(--tea-green);
+      border: 3px solid #D5CEA3;
     }
     
     .avatar i {
       font-size: 2.5rem;
-      color: var(--tea-green);
+      color: #D5CEA3;
     }
     
     .input-group {
@@ -106,25 +98,25 @@
       left: 15px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--tea-green);
+      color: #D5CEA3;
       font-size: 18px;
     }
     
     .auth-input {
       width: 100%;
       padding: 14px 14px 14px 45px;
-      border: 2px solid var(--blue-munsell);
+      border: 2px solid #5D4A3F;
       border-radius: 10px;
-      background: var(--charcoal);
-      color: var(--tea-green);
+      background: #1A120B;
+      color: #E5E5CB;
       font-size: 1rem;
       transition: all 0.3s ease;
     }
     
     .auth-input:focus {
-      border-color: var(--tea-green);
+      border-color: #D5CEA3;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(201, 228, 202, 0.2);
+      box-shadow: 0 0 0 3px rgba(213, 206, 163, 0.2);
     }
     
     .error-message {
@@ -138,8 +130,8 @@
     .auth-btn {
       width: 100%;
       padding: 14px;
-      background: var(--tea-green);
-      color: var(--charcoal);
+      background: #D5CEA3;
+      color: #1A120B;
       border: none;
       border-radius: 10px;
       font-size: 1.1rem;
@@ -150,7 +142,7 @@
     }
     
     .auth-btn:hover {
-      background: var(--cambridge-blue);
+      background: #C5BC8E;
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
@@ -160,11 +152,11 @@
       justify-content: center;
       margin-top: 25px;
       padding-top: 20px;
-      border-top: 1px solid var(--blue-munsell);
+      border-top: 1px solid #5D4A3F;
     }
     
     .footer-link {
-      color: var(--tea-green);
+      color: #D5CEA3;
       text-decoration: none;
       font-weight: 500;
       cursor: pointer;
@@ -172,7 +164,7 @@
     }
     
     .footer-link:hover {
-      color: var(--cambridge-blue);
+      color: #C5BC8E;
       text-decoration: underline;
     }
     
@@ -189,7 +181,7 @@
 
     .social-divider span {
       padding: 0 15px;
-      color: var(--cambridge-blue);
+      color: #A69B86;
       font-size: 0.9rem;
     }
 
@@ -198,7 +190,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: var(--blue-munsell);
+      background: #5D4A3F;
     }
 
     .social-buttons {
