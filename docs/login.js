@@ -9,7 +9,7 @@ const loginError = document.getElementById('login-error');
 const registerError = document.getElementById('register-error');
 
 // API base URL
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = window.API_BASE_URL + '/api';
 
 // Password visibility toggle
 function togglePasswordVisibility() {
@@ -71,7 +71,7 @@ loginBtn.addEventListener('click', async () => {
       loginData[key] === undefined && delete loginData[key]
     );
 
-    const response = await fetch(`${window.API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ registerBtn.addEventListener('click', async () => {
   registerError.textContent = 'Creating account...';
   
   try {
-    const response = await fetch(`${window.API_BASE_URL}/auth/register`, {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -199,7 +199,7 @@ const googleButtons = document.querySelectorAll('.google-btn');
 // Social login functionality
 googleButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = API_BASE_URL + '/auth/google';
   });
 });
 

@@ -9,7 +9,10 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['https://login-vert-rho.vercel.app', 'http://localhost:5500'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Session middleware (required for Passport)
