@@ -187,12 +187,10 @@
       const userFromUrl = urlParams.get('user');
       
       if (tokenFromUrl && userFromUrl) {
-        // OAuth redirect - store the data and clean URL
         try {
           const userData = JSON.parse(decodeURIComponent(userFromUrl));
           localStorage.setItem('token', tokenFromUrl);
           localStorage.setItem('user', JSON.stringify(userData));
-          
           // Clean URL
           window.history.replaceState({}, document.title, window.location.pathname);
         } catch (error) {
@@ -212,18 +210,18 @@
       // Parse user data and display it
       try {
         const userData = JSON.parse(user);
-        
         // Update navbar
-        document.getElementById('username').textContent = userData.username;
-        
+        document.getElementById('username').textContent = userData.username || '-';
         // Update user details
-        document.getElementById('user-username').textContent = userData.username;
-        document.getElementById('user-email').textContent = userData.email;
-        
-        // Format creation date
-        const createdDate = new Date().toLocaleDateString();
-        document.getElementById('user-created').textContent = createdDate;
-        
+        document.getElementById('user-username').textContent = userData.username || '-';
+        document.getElementById('user-email').textContent = userData.email || '-';
+        // Format creation date (if available)
+        if (userData.createdAt) {
+          const createdDate = new Date(userData.createdAt).toLocaleDateString();
+          document.getElementById('user-created').textContent = createdDate;
+        } else {
+          document.getElementById('user-created').textContent = '-';
+        }
       } catch (error) {
         console.error('Error parsing user data:', error);
         // If there's an error parsing user data, redirect to login
